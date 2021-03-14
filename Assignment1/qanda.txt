@@ -1,0 +1,20 @@
+Please create a plain text file called “qanda.txt” ( for Questions AND Answers) and include it in your project folder. In it, please answer the following questions very briefly (one or two sentences each, max):
+
+ 1. What does “well behaved” mean in the context of subroutines?
+Ans. "well behaved" in the context of subroutines, means that the subroutine should save and restore any registers that have been modified unless they return any values. 
+ 
+2. Explain how/why your subroutine is “well behaved”.
+Ans. My subroutine uses stmfd and ldmfd, I use stmfd at the beginning of the subroutine which saves the registers that will be modified inside the subroutine and ldmfd at the end of my subroutine which restores 
+     the original contents of the registers before returning program execution(PC) to the caller(main). 
+
+ 3. How would you test that your subroutine is well behaved?
+Ans. I would test it with breakpoints while debugging. I would also check all the register values and make sure that all of the registers other than those that are either parameters or return values for the subroutine stay
+     the same, ensuring the context of the caller(main) stays the same.  I would also keep track of how the CPSR flags look while I call and return the subroutine, especially keeping the C flag in mind as it is used to indicate an error in our case.
+
+4. Why is using repeated addition to implement multiplication such a bad idea?
+Ans. Multiplication of two n-bit numbers can be done in O(log n) , just like addition. Addition in O(log n) is done by splitting the number in half and (recursively) adding the two parts in parallel, where the upper half is solved for both the "0-carry"
+     and "1-carry" case. Once the lower half is added, the carry is examined, and its value is used to choose between the 0-carry and 1-carry case. This would cause a very large number of recursive calls resulting in deep recursion. Hence, it is a bad idea.
+
+5. What would happen to the program if a very large number of recursive calls were made, i.e. if there was very "deep" recursion?
+Ans. As we know that the instructions are stored in a stack (SP) and after every recursive call the contents of register and memory will also be saved in the stack, when a large number of recursive calls are made, it can result in a stack overflow. 
+

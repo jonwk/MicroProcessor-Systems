@@ -1,0 +1,4 @@
+Dependencies for Project 'SampleLPC2138Project', Target 'Target': (DO NOT MODIFY !)
+F (.\Startup.s)(0x6048CD6A)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I"C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\RV31\INC"-I"C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\CMSIS\Include"-I"C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\INC\Philips"--pd "__UVISION_VERSION SETA 526"--list .\listings\startup.lst -o .\objects\startup.o --depend .\objects\startup.d)
+F (.\TCD.s)(0x604E7FF6)(--cpu ARM7TDMI --pd "__EVAL SETA 1" -g --apcs=interwork -I"C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\RV31\INC"-I"C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\CMSIS\Include"-I"C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\INC\Philips"--pd "__UVISION_VERSION SETA 526"--list .\listings\tcd.lst -o .\objects\tcd.o --depend .\objects\tcd.d)
+F (.\README.txt)(0x6048CD6A)()
