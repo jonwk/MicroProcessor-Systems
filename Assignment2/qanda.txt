@@ -1,0 +1,16 @@
+1. What does the term "Memory Mapped" in "Memory Mapped I/O" mean?
+A. The term Memory-mapped I/O refers to the memory locations that I/O devices are mapped to.
+
+2. What is the difference between a byte-sized memory-mapped interface register and a regular byte of RAM?
+A. Memory-mapped I/O uses the same address space to address both memory and I/O devices unlike a regular byte of RAM.
+
+3. Why is polling considered to be inefficient?
+A. There are numerous elements to be polled in each polling cycle and only a few elements are active and as it is resource 
+   intensive and wasteful it is considered to be inefficient
+
+4. How could you organise polling of two or more interfaces?
+A. By polling only critical interfaces at a high rate, while polling noncritical interfaces at a normal or slower rate.
+   
+5. Why would polling be bad for a computer's energy consumption?
+A. The responsibility for detecting the I/O opportunity rests with the CPU, and as the
+   cpu must allocate more resources to this, it is bad for a computer's energy consumption.
