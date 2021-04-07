@@ -1,0 +1,169 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 area             tcd,code,readonly
+    3 00000000                 export           __main
+    4 00000000         __main
+    5 00000000         
+    6 00000000         
+    7 00000000 E0028018 
+                       IO1DIR  EQU              0xE0028018  ;
+    8 00000000 E0028014 
+                       IO1SET  EQU              0xE0028014  ;
+    9 00000000 E002801C 
+                       IO1CLR  EQU              0xE002801C  ;
+   10 00000000 E0028010 
+                       IO1PIN  EQU              0xE0028010  ;
+   11 00000000         
+   12 00000000 E59F10A0        LDR              R1,=IO1DIR
+   13 00000004 E3A028FF        LDR              R2,=0x00ff0000 ; select P1.23--
+                                                            P1.16
+   14 00000008 E5812000        STR              R2,[R1]     ; make them outputs
+                                                            
+   15 0000000C         ;ldr R1,=IO1SET
+   16 0000000C         ;str R2,[R1]   ;set them to turn the pins off
+   17 0000000C         ;ldr R2,=IO1CLR
+   18 0000000C         
+   19 0000000C         
+   20 0000000C E59F4098        LDR              R4,=IO1PIN  ; point to the pin 
+                                                            register of GPIO1
+   21 00000010 E3A0540F        MOV              R5,#0x0F000000 ; setting our de
+                                                            fault inputs
+   22 00000014 E5845000        STR              R5,[R4]     ;
+   23 00000018         
+   24 00000018 E3A07000        MOV              R7,#0       ; Result D - 00 to 
+                                                            ff initialization 
+   25 0000001C         
+   26 0000001C         whRepeat                             ; while (forever) {
+                                                            
+   27 0000001C E5946000        LDR              R6, [R4]    ;   lastState = IO1
+                                                            PIN
+   28 00000020         
+   29 00000020 E35700FF        CMP              R7, #0x000000FF ; as D is a 8 b
+                                                            it value, 0<=D<=FF 
+                                                            , optional error ha
+                                                            ndling
+   30 00000024 9A000000        BLS              whPoll      ; if (D > FF)
+   31 00000028 E3A07000        mov              R7,#0       ;    ; D = 0
+   32 0000002C         
+   33 0000002C         whPoll                               ;   do {
+   34 0000002C E5945000        LDR              R5, [R4]    ;     currentState 
+                                                            = IO1PIN1
+   35 00000030 E1550006        CMP              R5, R6      ;
+   36 00000034 0AFFFFFC        BEQ              whPoll      ;   } while (curren
+                                                            tState == lastState
+                                                            )
+   37 00000038         
+   38 00000038 E205840F        AND              R8, R5, #0x0F000000 ; Mask to o
+                                                            btain input pins (2
+                                                            7-24)
+   39 0000003C         
+   40 0000003C E358040E        CMP              R8, #0x0E000000 ; Button 24 sho
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                            uld add 1 to the va
+                                                            lue of D
+   41 00000040 1A000001        BNE              notAdd      ; (0001 <-> 1110) c
+                                                            hecking for bit 24
+   42 00000044 E2877001        ADD              r7, r7, #1  ; R7++ (D ++)
+   43 00000048 EA00000F        B                updateOutput ; update output
+   44 0000004C         notAdd
+   45 0000004C         
+   46 0000004C E358040D        CMP              R8, #0x0D000000 ; Button 25 sho
+                                                            uld subtract 1 from
+                                                             the value of D
+   47 00000050 1A000005        BNE              notSub      ; (0010 <-> 1101) c
+                                                            hecking for bit 25
+   48 00000054 E3570000        CMP              R7,#0       ; if R7 is zero the
+                                                            n 2's compliment wi
+                                                            ll be returned 
+   49 00000058 1A000001        BNE              nonNegative ; but this is a 8 b
+                                                            it value so two's c
+                                                            omplement will star
+                                                            t from FF
+   50 0000005C E3A070FF        MOV              R7, #0x000000FF ; unlike FFFFFF
+                                                            FF usually
+   51 00000060 EA000009        B                updateOutput ; update output
+   52 00000064         nonNegative
+   53 00000064 E2477001        SUB              r7,r7, #1   ; R7-- (D --)
+   54 00000068 EA000007        B                updateOutput ; update output
+   55 0000006C         notSub
+   56 0000006C         
+   57 0000006C E358040B        CMP              R8, #0x0B000000 ; Button 26 sho
+                                                            uld shift the bits 
+                                                            in D to the left by
+                                                             one bit position
+   58 00000070 1A000001        BNE              notLeftShift ; (0100 <-> 1011) 
+                                                            checking for bit 26
+                                                            
+   59 00000074 E1A07087        MOV              R7, R7, LSL #1 ; R7 LSL (D LSL)
+                                                            
+   60 00000078 EA000003        B                updateOutput ; update output
+   61 0000007C         notLeftShift
+   62 0000007C         
+   63 0000007C E3580407        CMP              R8, #0x07000000 ; Button 27 sho
+                                                            uld shift the bits 
+                                                            in D to the right b
+                                                            y one bit position.
+                                                            
+   64 00000080 1A000001        BNE              notRightShift ; (1000 <-> 0111)
+                                                             checking for bit 2
+                                                            7
+   65 00000084 E1A070A7        MOV              R7, R7, LSR #1 ; R7 RSL (D LSR)
+                                                            
+   66 00000088 EAFFFFFF        B                updateOutput ; update output
+   67 0000008C         notRightShift
+   68 0000008C         
+   69 0000008C         updateOutput                         ; Updating output i
+                                                            n pins 23-16
+   70 0000008C E1A08807        MOV              R8, R7 ,LSL#16 ; Left shifting 
+                                                            by 16 to get our re
+                                                            sult in required pi
+                                                            ns
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   71 00000090 E5848000        STR              R8,[R4]     ; Storing the outpu
+                                                            t D to pin register
+                                                             of GPIO1
+   72 00000094         
+   73 00000094         waitAll                              ; after updating th
+                                                            e result we wait ti
+                                                            ll all the pins are
+                                                             turned off
+   74 00000094 E5948000        LDR              R8, [R4]    ; to make sure the 
+                                                            operations don't in
+                                                            terfere with each o
+                                                            ther
+   75 00000098 E208840F        AND              R8, #0x0F000000 ; Checking all 
+                                                            the bits 27-24 are 
+                                                            set
+   76 0000009C E358040F        CMP              R8, #0x0F000000 ; waiting till 
+                                                            they are set
+   77 000000A0 1AFFFFFB        BNE              waitAll     ;
+   78 000000A4         
+   79 000000A4 EAFFFFDC        B                whRepeat    ; } branching back 
+                                                            to the initial whil
+                                                            e loop
+   80 000000A8         
+   81 000000A8         
+   82 000000A8                 end
+              E0028018 
+              E0028010 
+Command Line: --debug --diag_suppress=9931 --apcs=interwork --depend=.\objects\
+tcd.d -o.\objects\tcd.o -I"C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\RV
+31\INC" -I"C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\CMSIS\Include" -I"
+C:\Users\th3j9\Desktop\Microprocessor Systems\ARM\INC\Philips" --predefine="__E
+VAL SETA 1" --predefine="__UVISION_VERSION SETA 526" --list=.\listings\tcd.lst 
+TCD.s
