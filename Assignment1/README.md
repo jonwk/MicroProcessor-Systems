@@ -1,4 +1,4 @@
-## Assignment 1 -- Programming and Project Development
+# Assignment 1 -- Programming and Project Development
 This assignment is worth 8% of your module result.
 
 The deadline for submission is Thursday March 11, midnight.
@@ -13,7 +13,7 @@ Calculations  must be done in 64-bit unsigned arithmetic and the result must be 
 
 If any error occurs, the C bit of the CPSR must be set and a result of 0 returned in R0 & R1. If there are no errors, the C bit must be clear.
 
-The main program should use the subroutine four times:
+## The main program should use the subroutine four times:
 
 1. Calculate the factorial of 5.
 2. Calculate the factorial of 14.
@@ -26,7 +26,7 @@ Note that the ARM7 does not do 64-bit arithmetic — you’ll have to somehow ma
 
 Do not use repeated addition to implement multiplication. Zero marks will be awarded for a solution that uses repeated addition.
 
-Please create a plain text file called “qanda.txt” ( for Questions AND Answers) and include it in your project folder. In it, please answer the following questions very briefly (one or two sentences each, max):
+## Please create a plain text file called “qanda.txt” ( for Questions AND Answers) and include it in your project folder. In it, please answer the following questions very briefly (one or two sentences each, max):
 
 1. What does “well behaved” mean in the context of subroutines?
 2. Explain how/why your subroutine is “well behaved”.
@@ -34,7 +34,7 @@ Please create a plain text file called “qanda.txt” ( for Questions AND Answe
 4. Why is using repeated addition to implement multiplication such a bad idea?
 5. What would happen to the program if a very large number of recursive calls were made, i.e. if there was very "deep" recursion?
 
-Marks will be awarded as follows:
+## Marks will be awarded as follows:
 
 1. Has a Keil project, including the quanda.txt file, been submitted? (2)
 2. Does the project assemble with no errors or warnings? (2)
