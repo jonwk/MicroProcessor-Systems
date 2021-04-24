@@ -1,4 +1,4 @@
-## Assignment 2 -- Polling
+# Assignment 2 -- Polling
 This assignment is worth 10% of your module result.
 
 The deadline for submission is Monday April 5, midnight.
@@ -13,7 +13,7 @@ Pins 23 -- 16 should be treated as a 8-bit number "D" whose value is initially 0
 
 Pins 27 -- 24 should be treated as individual inputs, where a pin's value going from 1 to 0 is to be interpreted as a corresponding [imaginary] push-button being pressed and the transition from 0 to 1 is is to be interpreted as the release of the button. For example, if Button 23 is pressed and released, Pin 23's value will go from 1 to 0; then, when Button 23 is released, the value of Pin 23 will return from 0 to 1. You can click theses values in the emulator.
 
-The program should do the following:
+## The program should do the following:
 
 1. Pressing Button 24 should add 1 to the value of D.
 2. Pressing Button 25 should subtract 1 from the value of D.
@@ -21,7 +21,7 @@ The program should do the following:
 4. Pressing Button 27 should shift the bits in D to the right by one bit position.
 5. Marks will be awarded for a well structured program. You should consider the separate components of the program, and write individual subroutines for them.
 
-Please create a plain text file called “qanda.txt” ( for Questions AND Answers) and include it in your project folder. In it, please answer the following questions very briefly (one or two sentences each, max):
+## Please create a plain text file called “qanda.txt” ( for Questions AND Answers) and include it in your project folder. In it, please answer the following questions very briefly (one or two sentences each, max):
 
 1. What does the term "Memory Mapped" in "Memory Mapped I/O" mean?
 2. What is the difference between a byte-sized memory-mapped interface register and a regular byte of RAM?
@@ -30,7 +30,7 @@ Please create a plain text file called “qanda.txt” ( for Questions AND Answe
 5. Why would polling be bad for a computer's energy consumption?
 
 
-Marks will be awarded as follows:
+## Marks will be awarded as follows:
 
 1. Has a Keil project been submitted? (2)
 2. Does the project assemble with no errors or warnings? (2)
