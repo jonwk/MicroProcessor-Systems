@@ -1,0 +1,17 @@
+1. What is the difference between "system" mode and "supervisor" mode on the ARM 7?
+A. While both the "system" mode and "supervisor" mode are privileged, but "system" mode has no register bank switch.
+   "supervisor" mode is entered if the CPU is reset or when a SVC instruction is executed, while the exception handlers modify the CPSR to enter System mode.
+
+2. When the term "preemptive" is used in respect of a thread or process scheduler, what does it mean? 
+A. When the term "preemptive" is used in respect of a thread or process scheduler, it means either a process switching from running state to ready state, or from waiting state to ready state.
+
+3. Based on what we have discussed in class, why it is inadvisable to use a general-purpose operating system in a situation where real-time operation must be guaranteed?
+A. It is inadvisable to use a general-purpose operating system in a situation where real-time operation must be guaranteed, 
+   as it will cause unnecssary interrupts and could break the whole operating system.
+
+4. What basic hardware facilities are provided to enable system builders to enforce privilege outside the CPU ("off-chip")? 
+A. MMU( Memory Management Unit ) Arm bus which carries two PROT lines, Address and Data, Read/Write.
+
+5. Overall, which is more efficient: interrupt-driven I/O or polled I/O? In your answer, explain why and roughly estimate the difference in efficiency.
+A. Polled I/o can be more efficient over interrupt-driven I/O. In an interrupt-driven I/O the CPU works continously on the given task, while in a polled I/O, it would work nased on the input, 
+   which would result in CPU using less resources.
